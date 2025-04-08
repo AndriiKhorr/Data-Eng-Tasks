@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from job_2.convert_to_avro import convert_json_to_avro
+from lec02.job_2.convert_to_avro import convert_json_to_avro
 
 # Ініціалізація Flask-додатку
 app = Flask(__name__)

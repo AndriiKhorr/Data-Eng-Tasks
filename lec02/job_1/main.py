@@ -1,10 +1,9 @@
 from flask import Flask, request, jsonify
-from job_1.fetch_sales import fetch_sales_data
+from lec02.job_1.fetch_sales import fetch_sales_data
 import os
 
 # Ініціалізуємо Flask-додаток
 app = Flask(__name__)
-
 
 @app.route("/run-job", methods=["POST"])
 def run_job() -> tuple:
@@ -22,13 +21,18 @@ def run_job() -> tuple:
         return jsonify({"error": "Missing 'raw_dir' in request"}), 400
 
     try:
+        # Формуємо абсолютний шлях до папки raw/sales, яка знаходиться в корені проєкту
+        # Використовуємо os.path.abspath(), щоб отримати абсолютний шлях до папки
+        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        raw_dir_path = os.path.join(project_root, 'raw', 'sales', raw_dir)
+
         # Запускаємо основну функцію для завантаження даних
-        fetch_sales_data(raw_dir)
+        fetch_sales_data(raw_dir_path)
 
         # Повертаємо успішну відповідь
         return jsonify({
             "status": "success",
-            "message": f"Data saved to {raw_dir}"
+            "message": f"Data saved to {raw_dir_path}"
         }), 200
 
     except Exception as e:

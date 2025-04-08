@@ -1,8 +1,9 @@
 import os
 import shutil
 
-# Вказуємо шлях до директорії, де зберігаються сирі файли (JSON)
-raw_dir: str = "raw/sales"
+# Отримуємо абсолютний шлях до директорії, де зберігаються сирі файли (JSON)
+# Абсолютний шлях гарантує правильну роботу незалежно від того, звідки запускається скрипт
+raw_dir: str = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'raw', 'sales'))
 
 # Перебираємо всі файли, що знаходяться у вказаній директорії
 for filename in os.listdir(raw_dir):
@@ -30,5 +31,4 @@ for filename in os.listdir(raw_dir):
         shutil.move(src_path, dst_path)
 
         # Виводимо повідомлення про успішне переміщення файлу
-        print(f"Переміщено {filename} у {date_folder}/")
-
+        print(f"✅ Переміщено {filename} у {date_folder}/")
