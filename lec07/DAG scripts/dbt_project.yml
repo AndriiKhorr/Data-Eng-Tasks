@@ -1,0 +1,19 @@
+name: 'homework'
+version: '1.0'
+config-version: 2
+
+profile: 'homework'
+
+model-paths: ["models"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  homework:              # name проєкту
+    staging:             # підпапка: models/staging/
+      +materialized: view
+    mart:                # підпапка: models/mart/
+      +materialized: table
