@@ -1,0 +1,103 @@
+version: '3.7'
+
+services:
+  spark-master:
+    build: ./spark-base
+    image: spark-image
+    container_name: spark-master
+    entrypoint: ['/opt/spark/entrypoint.sh', 'master']
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080" ]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    volumes:
+      - shared-workspace:/opt/workspace
+      - ./scripts:/opt/spark/scripts
+      - ./data:/opt/workspace/data
+      - ./notebooks:/opt/workspace/notebooks
+      - ./spark-logs:/opt/spark/spark-events
+    env_file:
+      - ./spark-base/.env.spark
+    ports:
+      - '8080:8080' # Spark master Web UI
+      - '7077:7077' # Spark master порт для worker'ів
+      - '4040:4040' # Spark job UI
+    networks:
+      - spark
+
+  spark-history-server:
+    container_name: spark-history
+    image: spark-image
+    entrypoint: ['/opt/spark/entrypoint.sh', 'history']
+    depends_on:
+      - spark-master
+    env_file:
+      - ./spark-base/.env.spark
+    volumes:
+      - shared-workspace:/opt/workspace
+      - ./scripts:/opt/spark/scripts
+      - ./data:/opt/workspace/data
+      - ./spark-logs:/opt/spark/spark-events
+    ports:
+      - '18080:18080' # Spark history server Web UI
+    networks:
+      - spark
+
+  spark-worker:
+    container_name: spark-worker
+    image: spark-image
+    entrypoint: ['/opt/spark/entrypoint.sh', 'worker']
+    depends_on:
+      - spark-master
+    env_file:
+      - ./spark-base/.env.spark
+    volumes:
+      - shared-workspace:/opt/workspace
+      - ./scripts:/opt/spark/scripts
+      - ./data:/opt/workspace/data
+      - ./spark-logs:/opt/spark/spark-events
+    networks:
+      - spark
+
+  spark-worker-2:  # ДОДАЛИ ще одного Worker'а
+    container_name: spark-worker-2
+    image: spark-image
+    entrypoint: ['/opt/spark/entrypoint.sh', 'worker']
+    depends_on:
+      - spark-master
+    env_file:
+      - ./spark-base/.env.spark
+    volumes:
+      - shared-workspace:/opt/workspace
+      - ./scripts:/opt/spark/scripts
+      - ./data:/opt/workspace/data
+      - ./spark-logs:/opt/spark/spark-events
+    networks:
+      - spark
+
+  jupyter-lab:  # окремий сервіс для JupyterLab
+    container_name: jupyter-lab
+    image: spark-image
+    entrypoint: ["jupyter", "lab", "--no-browser", "--allow-root", "--ip=0.0.0.0", "--port=8889", "--NotebookApp.token="]
+    volumes:
+      - shared-workspace:/opt/workspace
+      - ./scripts:/opt/spark/scripts
+      - ./data:/opt/workspace/data
+      - ./notebooks:/opt/workspace/notebooks
+    ports:
+      - '8889:8889' # JupyterLab порт
+    networks:
+      - spark
+
+networks:
+  spark:
+    driver: bridge
+
+volumes:
+  shared-workspace:
+    name: "hadoop-distributed-file-system"
+    driver: local
+  spark-events:
+    driver: local
+  spark-logs:
