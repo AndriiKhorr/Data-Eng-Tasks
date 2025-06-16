@@ -1,0 +1,23 @@
+FROM apache/airflow:2.9.1-python3.11
+
+USER root
+
+# Встановити Java 17 + curl
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    curl \
+    openjdk-17-jre-headless \
+    ca-certificates && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Встановити Spark (з архівного дзеркала Apache!)
+ENV SPARK_VERSION=3.5.1
+ENV SPARK_PACKAGE=spark-${SPARK_VERSION}-bin-hadoop3
+ENV SPARK_HOME=/opt/spark
+ENV PATH=$PATH:$SPARK_HOME/bin
+
+RUN curl -fsSL https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/${SPARK_PACKAGE}.tgz \
+  | tar -xz -C /opt && \
+  mv /opt/${SPARK_PACKAGE} /opt/spark
+
+USER airflow
