@@ -1,18 +1,19 @@
-import pandas as pd
-from pathlib import Path
+import os
+import pyarrow.parquet as pq
 
-# Шлях до директорії з parquet-файлами
-silver_path = Path("data/silver/customers")
+# Шлях до директорії
+parquet_dir = os.path.join("data", "silver", "customers_updated_from_user_profiles")
 
-# Зчитуємо всі .parquet файли в директорії
-all_files = list(silver_path.glob("*.parquet"))
+# Знаходимо перший .parquet файл
+files = [f for f in os.listdir(parquet_dir) if f.endswith(".parquet")]
 
-# Об'єднуємо всі файли в один DataFrame
-df = pd.concat([pd.read_parquet(file) for file in all_files], ignore_index=True)
+if not files:
+    raise FileNotFoundError("У директорії немає .parquet файлів")
 
-# Виводимо кілька перших рядків
-print(df.head())
+# Побудова повного шляху
+file_path = os.path.join(parquet_dir, files[0])
 
-# Перевіримо типи колонок
-print("\n Типи колонок:")
-print(df.dtypes)
+# Читання схеми
+parquet_file = pq.ParquetFile(file_path)
+print("Схема файлу:\n")
+print(parquet_file.schema)
