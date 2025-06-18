@@ -1,19 +1,17 @@
-import os
 import pyarrow.parquet as pq
+import pandas as pd
 
-# Шлях до директорії
-parquet_dir = os.path.join("data", "silver", "customers_updated_from_user_profiles")
+# Шлях до директорії з паркеткою
+folder_path = "data/gold/user_profiles_enriched"
 
-# Знаходимо перший .parquet файл
-files = [f for f in os.listdir(parquet_dir) if f.endswith(".parquet")]
+# Читаємо всі файли в цій папці
+table = pq.ParquetDataset(folder_path).read()
+df = table.to_pandas()
 
-if not files:
-    raise FileNotFoundError("У директорії немає .parquet файлів")
+# Виводимо схему
+print("📄 Схема таблиці:")
+print(table.schema)
 
-# Побудова повного шляху
-file_path = os.path.join(parquet_dir, files[0])
-
-# Читання схеми
-parquet_file = pq.ParquetFile(file_path)
-print("Схема файлу:\n")
-print(parquet_file.schema)
+# Рахуємо кількість пропусків у кожній колонці
+print("\n📊 Пропуски у колонках:")
+print(df.isnull().sum())
