@@ -31,7 +31,7 @@ df_bronze.write \
     .option("header", True) \
     .csv(bronze_path)
 
-print("✅ Bronze sales CSV saved.")
+print("Bronze sales CSV saved.")
 
 # === Крок 2: Чистка та трансформація у Silver
 
@@ -55,6 +55,6 @@ df_silver.write \
     .partitionBy("purchase_date") \
     .parquet(silver_path)
 
-print("✅ Silver sales saved with proper schema and partitions.")
+print("Silver sales saved with proper schema and partitions.")
 
 spark.stop()

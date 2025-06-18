@@ -1850,3 +1850,24 @@
 [2025-06-16T21:47:02.768+0000] {logging_mixin.py:188} INFO - [2025-06-16T21:47:02.767+0000] {dag.py:3096} INFO - Sync 1 DAGs
 [2025-06-16T21:47:02.817+0000] {logging_mixin.py:188} INFO - [2025-06-16T21:47:02.817+0000] {dag.py:3954} INFO - Setting next_dagrun for process_sales to None, run_after=None
 [2025-06-16T21:47:02.863+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/process_sales_dag.py took 0.331 seconds
+[2025-06-16T21:47:33.685+0000] {processor.py:161} INFO - Started process (PID=708) to work on /opt/airflow/dags/process_sales_dag.py
+[2025-06-16T21:47:33.688+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/process_sales_dag.py for tasks to queue
+[2025-06-16T21:47:33.694+0000] {logging_mixin.py:188} INFO - [2025-06-16T21:47:33.693+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/process_sales_dag.py
+[2025-06-16T21:47:33.745+0000] {processor.py:840} INFO - DAG(s) 'process_sales' retrieved from /opt/airflow/dags/process_sales_dag.py
+[2025-06-16T21:47:33.832+0000] {logging_mixin.py:188} INFO - [2025-06-16T21:47:33.832+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-06-16T21:47:33.877+0000] {logging_mixin.py:188} INFO - [2025-06-16T21:47:33.876+0000] {dag.py:3954} INFO - Setting next_dagrun for process_sales to None, run_after=None
+[2025-06-16T21:47:33.942+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/process_sales_dag.py took 0.273 seconds
+[2025-06-16T21:48:05.006+0000] {processor.py:161} INFO - Started process (PID=713) to work on /opt/airflow/dags/process_sales_dag.py
+[2025-06-16T21:48:05.010+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/process_sales_dag.py for tasks to queue
+[2025-06-16T21:48:05.017+0000] {logging_mixin.py:188} INFO - [2025-06-16T21:48:05.016+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/process_sales_dag.py
+[2025-06-16T21:48:05.071+0000] {processor.py:840} INFO - DAG(s) 'process_sales' retrieved from /opt/airflow/dags/process_sales_dag.py
+[2025-06-16T21:48:05.178+0000] {logging_mixin.py:188} INFO - [2025-06-16T21:48:05.175+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-06-16T21:48:05.205+0000] {logging_mixin.py:188} INFO - [2025-06-16T21:48:05.205+0000] {dag.py:3954} INFO - Setting next_dagrun for process_sales to None, run_after=None
+[2025-06-16T21:48:05.243+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/process_sales_dag.py took 0.275 seconds
+[2025-06-16T21:48:35.837+0000] {processor.py:161} INFO - Started process (PID=718) to work on /opt/airflow/dags/process_sales_dag.py
+[2025-06-16T21:48:35.840+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/process_sales_dag.py for tasks to queue
+[2025-06-16T21:48:35.850+0000] {logging_mixin.py:188} INFO - [2025-06-16T21:48:35.849+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/process_sales_dag.py
+[2025-06-16T21:48:35.895+0000] {processor.py:840} INFO - DAG(s) 'process_sales' retrieved from /opt/airflow/dags/process_sales_dag.py
+[2025-06-16T21:48:35.952+0000] {logging_mixin.py:188} INFO - [2025-06-16T21:48:35.951+0000] {dag.py:3096} INFO - Sync 1 DAGs
+[2025-06-16T21:48:35.974+0000] {logging_mixin.py:188} INFO - [2025-06-16T21:48:35.974+0000] {dag.py:3954} INFO - Setting next_dagrun for process_sales to None, run_after=None
+[2025-06-16T21:48:36.028+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/process_sales_dag.py took 0.219 seconds

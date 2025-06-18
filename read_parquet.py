@@ -1,14 +1,18 @@
 import pandas as pd
-import glob
+from pathlib import Path
 
-# Зчитуємо всі .parquet файли з усіх purchase_date підпапок
-parquet_files = glob.glob("data/silver/sales/purchase_date=*/part-*.parquet")
+# Шлях до директорії з parquet-файлами
+silver_path = Path("data/silver/customers")
 
-# Перевіримо, скільки файлів знайшлось
-print(f"🗂️ Found {len(parquet_files)} parquet files.")
+# Зчитуємо всі .parquet файли в директорії
+all_files = list(silver_path.glob("*.parquet"))
 
-# Зчитаємо всі файли у один DataFrame
-df = pd.concat([pd.read_parquet(p) for p in parquet_files], ignore_index=True)
+# Об'єднуємо всі файли в один DataFrame
+df = pd.concat([pd.read_parquet(file) for file in all_files], ignore_index=True)
 
-# Виводимо перші рядки
+# Виводимо кілька перших рядків
 print(df.head())
+
+# Перевіримо типи колонок
+print("\n Типи колонок:")
+print(df.dtypes)
